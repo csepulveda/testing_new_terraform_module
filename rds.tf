@@ -1,5 +1,5 @@
 locals {
-  name = "walrus_database"
+  name = "walrus-database"
 }
 
 module "security_group" {
@@ -40,8 +40,8 @@ module "db" {
   allocated_storage     = 20
   max_allocated_storage = 100
 
-  db_name  = "walrus_database"
-  username = "admin_postgresql"
+  db_name  = "walrus-database"
+  username = "admin-postgresql"
   port     = 5432
 
   multi_az               = false
