@@ -1,12 +1,9 @@
-locals {
-  name = "walrus-database"
-}
 
 module "security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 4.0"
 
-  name        = local.name
+  name        = "walrus-database-sg"
   description = "Complete PostgreSQL example security group"
   vpc_id      = module.vpc.vpc_id
 
@@ -29,7 +26,7 @@ module "security_group" {
 module "db" {
   source = "terraform-aws-modules/rds/aws"
 
-  identifier = local.name
+  identifier = "walrus"
 
   engine               = "postgres"
   engine_version       = "14.1"
@@ -40,7 +37,7 @@ module "db" {
   allocated_storage     = 20
   max_allocated_storage = 100
 
-  db_name  = "walrus-database"
+  db_name  = "walrus"
   username = "admin-postgresql"
   port     = 5432
 
