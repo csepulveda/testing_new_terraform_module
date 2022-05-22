@@ -1,5 +1,5 @@
 locals {
-  name = "walrusDatabase"
+  name = "walrus_database"
 }
 
 module "security_group" {
