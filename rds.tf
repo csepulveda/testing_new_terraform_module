@@ -40,8 +40,8 @@ module "db" {
   allocated_storage     = 20
   max_allocated_storage = 100
 
-  db_name  = "walrusDatabase"
-  username = "adminPostgresql"
+  db_name  = "walrus_database"
+  username = "admin_postgresql"
   port     = 5432
 
   multi_az               = false
