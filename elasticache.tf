@@ -11,14 +11,14 @@ module "aws_elasticache_security_group" {
       from_port   = 6379
       to_port     = 6379
       protocol    = "tcp"
-      cidr_blocks = join(",", concat(module.vpc.database_subnets_cidr_blocks, module.vpc.private_subnets_cidr_blocks))
+      cidr_blocks = join(",", concat(module.vpc.elasticache_subnets_cidr_blocks, module.vpc.private_subnets_cidr_blocks))
     },
   ]
 }
 
 resource "aws_elasticache_subnet_group" "redis-node" {
   name       = "redis-cluster-cache-subnet"
-  subnet_ids = [module.vpc.database_subnet_group]
+  subnet_ids = [module.vpc.elasticache_subnet_group]
 }
 
 resource "aws_elasticache_cluster" "redis-node" {
