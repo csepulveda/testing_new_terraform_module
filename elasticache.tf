@@ -18,7 +18,7 @@ module "aws_elasticache_security_group" {
 
 resource "aws_elasticache_subnet_group" "redis-node" {
   name       = "redis-cluster-cache-subnet"
-  subnet_ids = [module.vpc.elasticache_subnet_group]
+  subnet_ids = module.vpc.elasticache_subnets
 }
 
 resource "aws_elasticache_cluster" "redis-node" {
