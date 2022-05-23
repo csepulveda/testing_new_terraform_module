@@ -1,19 +1,19 @@
 
-module "security_group" {
+module "database_security_group" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "~> 4.0"
 
   name        = "walrus-database-sg"
-  description = "Complete PostgreSQL example security group"
+  description = "Postgres"
   vpc_id      = module.vpc.vpc_id
 
-  # ingress
+  egress_rules = ["all-all"]
   ingress_with_cidr_blocks = [
     {
       from_port   = 5432
       to_port     = 5432
       protocol    = "tcp"
-      description = "PostgreSQL access from within VPC"
+      description = "PostgreSQL access subnets"
       cidr_blocks = join(",", concat(module.vpc.database_subnets_cidr_blocks, module.vpc.private_subnets_cidr_blocks))
     },
   ]
@@ -43,7 +43,7 @@ module "db" {
 
   multi_az               = false
   db_subnet_group_name   = module.vpc.database_subnet_group
-  vpc_security_group_ids = [module.security_group.security_group_id]
+  vpc_security_group_ids = [module.database_security_group.security_group_id]
 
   maintenance_window              = "Mon:00:00-Mon:03:00"
   backup_window                   = "03:00-06:00"
